@@ -1,10 +1,12 @@
 <?php
 
+// Declares the class belonging to the "App\Models" namespace
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;  // Provides methods for generating model factories.
+use Illuminate\Database\Eloquent\Model;                 // Imports the base Model class provided by Laravel
 
+// Defines Tag model
 class Tag extends Model
 {
     use HasFactory;
@@ -15,10 +17,13 @@ class Tag extends Model
      * @var array
      */
     protected $fillable = [
-        'uid',
-        'post_id',
+        'uid',         // Unique identifier for the tag
+        'post_id',     // ID of the associated post
     ];
 
+    /**
+     * Get the post that owns the tag.
+     */
     public function post()
     {
         return $this->belongsTo(Post::class);

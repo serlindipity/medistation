@@ -9,6 +9,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Stevebauman\Location\Facades\Location;
 
+// Defines Create and variables
 class Create extends Component
 {
     use WithFileUploads;

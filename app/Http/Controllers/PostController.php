@@ -74,23 +74,26 @@ class PostController extends Controller
      *
      * @return Application|Factory|View
      */
+
+     // responsible for displaying the edit form for a specific post.
     public function edit(Post $post): View|Factory|Application
     {
-        return view('post.edit', ['post' => $post]);
+        return view('post.edit', ['post' => $post]); // Returns the "post.edit" view, passing the $post variable to the view.
     }
 
+    // responsible for retrieving a specific post and its associated data.
     public function getPost($id)
     {
-        $post = Post::where('id', $id)->with(['postImages'])->get()->first();
-        $users = User::all();
-        return view('post.edit', ['post' => $post, 'users' => $users]);
+        $post = Post::where('id', $id)->with(['postImages'])->get()->first(); // Retrieves the post with the given $id from the database.
+        $users = User::all(); // Retrieves all users from the database.
+        return view('post.edit', ['post' => $post, 'users' => $users]); // Returns the "post.edit" view, passing the $post and $users variables to the view.
     }
 
-
+    // responsible for deleting a specific image associated with a post.
     public function deleteImage($id)
     {
-        $post = Media::where('id', $id)->delete();
-        return back();
+        $post = Media::where('id', $id)->delete(); // Deletes the media record with the given $id from the Media table.
+        return back(); // Redirects the user back to the previous page.
     }
 
     /**
@@ -101,10 +104,12 @@ class PostController extends Controller
      *
      * @return void
      */
+
+    // responsible for updating a post based on the provided request data.
     public function update(Request $request)
     {
 
-        $post = Post::find($request->id);
+        $post = Post::find($request->id); // Finds the post with the given ID.
 
         // Update the fields
         $post->title = $request->title;
@@ -112,8 +117,9 @@ class PostController extends Controller
         $post->location = $request->location;
 
         // Save the changes
-        $post->save();
+        $post->save(); // Saves the changes made to the post.
 
+        // Creates tag records for the post based on the tags provided in the request.
         if(count($request->tags) !== 0){
             foreach($request->tags as $tag){
                 Tag::create([
@@ -123,12 +129,14 @@ class PostController extends Controller
             }
         }
 
+        // Stores the uploaded file in the "public/storage" disk under the "post-photos" directory.
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $path = $file->store('post-photos', 'public');
 
-            $isImage = preg_match('/^.*\.(png|jpg|gif)$/i', $path);
+            $isImage = preg_match('/^.*\.(png|jpg|gif)$/i', $path); // Checks if the file has a valid image extension.
 
+            // Creates a media record for the post, associating the uploaded file with the post.
             Media::create([
                 'post_id' => $post->id,
                 'uid' => '/public/storage/'.$path,
@@ -136,7 +144,7 @@ class PostController extends Controller
             ]);
         }
 
-        return redirect('/post/edit/'.$request->id);
+        return redirect('/post/edit/'.$request->id); // Redirects the user to the edit page of the updated post.
     }
 
     /**

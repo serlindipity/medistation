@@ -14,6 +14,10 @@ return [
     */
 
     'previous' => '&laquo; Previous',
-    'next' => 'Next &raquo;',
+    // Text used for the "previous" navigation link
+    // This link allows users to navigate to the previous page or set of results.
 
+    'next' => 'Next &raquo;',
+    // Text used for the "next" navigation link
+    // This link allows users to navigate to the next page or set of results.
 ];

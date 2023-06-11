@@ -4,6 +4,7 @@
                     <div class="h-full w-full  mb-3 filter" wire:offline.class="grayscale">
                     	@foreach($post->postImages as $media)
 	                    @if($media->is_image && preg_match('/^.*\.(png|jpg|gif)$/i', $media->path))
+                        <!-- Post Images -->
                         <img src="{{ url($media->path) }}"
                             alt="Social" class="w-full object-scale-down md:object-cover lg:object-cover rounded-2xl" onContextMenu="return false;">
                         @elseif(!$media->is_image && preg_match('/^.*\.(mp4|3gp)$/i', $media->path))

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+// Defines View and variables
 class View extends Component
 {
     use WithPagination;

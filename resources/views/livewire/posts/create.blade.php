@@ -7,16 +7,19 @@
             @csrf
 
             <div>
+                <!-- Title input field -->
                 <x-jet-label for="title" value="{{ __('Title') }}" />
                 <x-jet-input id="title" class="block mt-1 mb-2 w-full" type="text" wire:model.lazy="title" />
             </div>
 
             <div>
+                <!-- Location input field -->
                 <x-jet-label for="location" value="{{ __('Location') }}" />
                 <x-jet-input id="location" class="block mt-1 w-full" type="text" wire:model.lazy="location" />
             </div>
 
             <div class="mt-4">
+                <!-- Description textarea -->
                 <x-jet-label for="body" value="{{ __('Description') }}" />
                <textarea rows="5" class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow" wire:model.lazy="body"> </textarea>
             </div>
@@ -27,8 +30,10 @@
                 <x-jet-label value="{{ __('Preview :') }}" />
 
                @if(in_array($file->extension(), $this->imageFormats))
+               <!-- Show image preview -->
                <img class="p-3 h-32" src="{{ $file->temporaryUrl() }}" oncontextmenu="return false;">
                @elseif(in_array($file->extension(), $this->videoFormats))
+               <!-- Show video preview -->
                <video controls crossorigin playsinline oncontextmenu="return false;" controlsList="nodownload" class="rounded-lg filter" >
 			                <!-- Video files -->
 			                <source src="{{ $file->temporaryUrl() }}" type="video/{{ $file->extension() }}" size="576">
